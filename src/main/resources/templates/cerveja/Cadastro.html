@@ -1,23 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title></title>
-  </head>
-  <body>
-  
-  <form method="POST">
-  	<label>SKU</label>
-  		  <input type="text" name="Sku" />
-  		  
-  		  	<label>Nome</label>
-  		  <input type="text" name="nome" />
-   <input type="submit" value="Salvar" />
-  
-  
-  </form>
-  
-  </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+</head>
+<body>
+
+	<div th:each="erro :  ${#fields.detailedErrors('${cerveja.*}')}">
+		<span th:text="${erro.message}"></span>
+	</div>
+
+
+	<form method="POST" th:object="${cerveja}">
+
+		<!-- 		<div th:each="erro :  ${#fields.detailedErrors()}"> -->
+		<!-- 			<span th:text="${erro.message}"></span> -->
+		<!-- 		</div> -->
+
+		<label>SKU</label> 
+		<input type="text" th:field="*{sku}" />
+		
+		 <label>Nome</label>
+		<input type="text"  th:field="*{nome}" />
+		
+		 <label>Descricao</label> 
+		 
+		 <input type="text"  th:field="*{descricao}" />
+			
+			
+			 <input type="submit" value="Salvar" />
+		<br /> <span th:text="${mensagem}"></span>
+	</form>
+
+</body>
 </html>
