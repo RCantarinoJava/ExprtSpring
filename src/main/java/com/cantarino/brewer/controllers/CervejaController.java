@@ -14,7 +14,7 @@ import com.cantarino.brewer.model.Cerveja;
 @Controller
 public class CervejaController {
 
-	@RequestMapping("/cerveja/Novo")
+	@RequestMapping("/Cerveja/Novo")
 	public String novo(Cerveja cerveja) {
 		return "cerveja/Cadastro";
 	}

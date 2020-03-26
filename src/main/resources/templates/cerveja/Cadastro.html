@@ -50,9 +50,9 @@
 								<option value="1">Long neck</option>
 							</select>
 							<div class='bw-field-action__icon'>
-							<a href="#">
-								<i class="glyphicon glyphicon-plus-sign"></i>
-							</a>
+								<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoEstilo">
+									<i class="glyphicon glyphicon-plus-sign bw-glyphicon-large"></i>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -118,6 +118,8 @@
 
 			</form>
 		</div>
+
+		<div th:replace="helpers/CadastroRapidoEstilo :: modal"></div>
 	</section>
 </body>
 </html>
