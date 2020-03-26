@@ -2,6 +2,8 @@ package com.cantarino.brewer.controllers;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,8 +16,11 @@ import com.cantarino.brewer.model.Cerveja;
 @Controller
 public class CervejaController {
 
+	private static final Logger logger = LoggerFactory.getLogger(CervejaController.class);
+
 	@RequestMapping("/Cerveja/Novo")
 	public String novo(Cerveja cerveja) {
+		logger.error("nivel info");
 		return "cerveja/Cadastro";
 	}
 
