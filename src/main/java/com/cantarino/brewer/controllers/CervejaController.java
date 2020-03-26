@@ -13,27 +13,22 @@ import com.cantarino.brewer.model.Cerveja;
 
 @Controller
 public class CervejaController {
-	
-	
+
 	@RequestMapping("/cerveja/Novo")
-	public String novo(Cerveja cerveja)
-	{		
-		return "cerveja/Cadastro";	
-    }  
-	
-	@RequestMapping(value =  "/cerveja/Novo" , method = RequestMethod.POST )
-	public String Cadastrar(@Valid Cerveja cerveja, BindingResult result ,Model model,RedirectAttributes redirect) 
-	{
-		
-		if(result.hasErrors())
-			//forward : nome da view					
-			return novo(cerveja);	
-		
-		
-		//nome da url
-		redirect.addFlashAttribute("mensagem","Salvo com sucesso");		
-		return "redirect:/cerveja/Novo";	
+	public String novo(Cerveja cerveja) {
+		return "cerveja/Cadastro";
 	}
 
+	@RequestMapping(value = "/cerveja/Novo", method = RequestMethod.POST)
+	public String Cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes redirect) {
+
+		if (result.hasErrors())
+			// forward : nome da view
+			return novo(cerveja);
+
+		// nome da url
+		redirect.addFlashAttribute("mensagem", "Salvo com sucesso");
+		return "redirect:/cerveja/Novo";
+	}
 
 }
