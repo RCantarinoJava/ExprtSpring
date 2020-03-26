@@ -8,4 +8,4 @@ Course Grade
 4. Logging with Log4J2
 5. Bean Validation
 6. Thymyleaf (Layout, templates, fragments)
-7. Sptring IoC
+7. Spring IoC
