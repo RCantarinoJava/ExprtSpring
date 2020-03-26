@@ -1,4 +1,4 @@
-# ExprtSpring
+# Expert Spring Framework
 
 Course Grade
 
