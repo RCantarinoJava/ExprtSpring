@@ -9,3 +9,4 @@ Course Grade
 5. Bean Validation
 6. Thymyleaf (Layout, templates, fragments)
 7. Spring IoC
+8. Migration w/ Flyway
