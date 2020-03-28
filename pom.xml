@@ -19,6 +19,14 @@
 		<java.version>1.8</java.version>
 		<maven-compiler-pluging.version>3.2</maven-compiler-pluging.version>
 
+
+		<!-- flyway-maven-plugin.version MVC -->
+		<flyway-maven-plugin.version>4.0.2</flyway-maven-plugin.version>
+
+
+		<!-- mysql-connector-java.version -->
+		<mysql-connector-java.version>8.0.19</mysql-connector-java.version>
+
 		<!-- Spring MVC -->
 		<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
 
@@ -37,7 +45,8 @@
 		<!-- Logging -->
 		<log4j.version>2.6</log4j.version>
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
-
+		<!-- JPA / Hibernate -->
+		<hibernate.version>5.1.0.Final</hibernate.version>
 
 
 	</properties>
@@ -50,6 +59,14 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway-maven-plugin.version}</version>
+				<configuration>
+					<driver>com.mysql.cj.jdbc.Driver</driver>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -118,8 +135,8 @@
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 			<version>${thymeleaf-layout-dialect.version}</version>
 		</dependency>
-		
-		
+
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -140,6 +157,31 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${jcl-over-slf4j.version}</version>
+		</dependency>
+
+		<!-- JPA / Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Hibernate - Java 8 support -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-java8</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<!-- MySQL Driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-java.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
