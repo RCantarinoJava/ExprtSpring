@@ -1,5 +1,8 @@
 package com.cantarino.brewer.config;
 
+import java.math.BigDecimal;
+import java.util.Locale;
+
 import org.springframework.beans.BeansException;
 
 import org.springframework.context.ApplicationContext;
@@ -7,12 +10,15 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import org.thymeleaf.TemplateEngine;
 
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -52,6 +58,12 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		DefaultFormattingConversionService convService = new DefaultFormattingConversionService();
 		convService.addConverter(new EstiloConverter());
 
+		NumberStyleFormatter bigDecimalStyleFormater = new NumberStyleFormatter("#,#0.00");
+		convService.addFormatterForFieldType(BigDecimal.class, bigDecimalStyleFormater);
+
+		NumberStyleFormatter intergerNumberStyleFormatter = new NumberStyleFormatter("#,##0");
+		convService.addFormatterForFieldType(Integer.class, intergerNumberStyleFormatter);
+
 		return convService;
 	}
 
@@ -63,6 +75,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
 		engine.addDialect(new LayoutDialect());
 		return engine;
+	}
+
+	@Bean
+	public LocaleResolver localResolver() {
+		return new FixedLocaleResolver(new Locale("pt", "BR"));
 	}
 
 	private ITemplateResolver templateResolver() {
