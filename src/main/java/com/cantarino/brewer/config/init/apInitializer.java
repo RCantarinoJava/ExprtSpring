@@ -5,36 +5,39 @@ import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.cantarino.brewer.config.JPAConfig;
+import com.cantarino.brewer.config.ServiceConfig;
 import com.cantarino.brewer.config.WebConfig;
 
 public class apInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
-		return null;
+
+		// modulo que e configurado antes do serveletWeb
+		return new Class<?>[] { JPAConfig.class , ServiceConfig.class };
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 
-		return new Class<?>[]{  WebConfig.class };
+		return new Class<?>[] { WebConfig.class };
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		
-		return new String[] {"/"};
+
+		return new String[] { "/" };
 	}
-	
+
 	@Override
 	protected Filter[] getServletFilters() {
 		// forçar encoded utf-8
-		 CharacterEncodingFilter _encodingFilter = new CharacterEncodingFilter();
-		 _encodingFilter.setEncoding("UTF-8");
-		 _encodingFilter.setForceEncoding(true);
-		 
-		 return new Filter[] { _encodingFilter};
+		CharacterEncodingFilter _encodingFilter = new CharacterEncodingFilter();
+		_encodingFilter.setEncoding("UTF-8");
+		_encodingFilter.setForceEncoding(true);
+
+		return new Filter[] { _encodingFilter };
 	}
 
 }
