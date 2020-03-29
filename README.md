@@ -11,3 +11,4 @@ Course Grade
 7. Spring IoC
 8. Migration w/ Flyway
 9. Spring Data w/ JPA
+10. Json w/ Jackson
