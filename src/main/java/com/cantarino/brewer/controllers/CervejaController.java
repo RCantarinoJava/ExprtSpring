@@ -22,6 +22,7 @@ import com.cantarino.brewer.services.EstiloService;
 
 
 @Controller
+@RequestMapping("/Cerveja")
 public class CervejaController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CervejaController.class);
@@ -32,7 +33,7 @@ public class CervejaController {
 	@Autowired
 	private EstiloService estiloService;
 
-	@RequestMapping("/Cerveja/Novo")
+	@RequestMapping("/Novo")
 	public ModelAndView Novo(Cerveja cerveja) {
 
 		ModelAndView modelView = new ModelAndView("cerveja/Cadastro");
@@ -48,7 +49,7 @@ public class CervejaController {
 
 	}
 
-	@RequestMapping(value = "/Cerveja/Novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/Novo", method = RequestMethod.POST)
 	public ModelAndView Cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model,
 			RedirectAttributes redirect) {
 

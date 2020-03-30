@@ -1,57 +1,73 @@
-$(function() {
+var Brewer = Brewer || {}
 
-	var modal = $('#modalCadastroRapidoEstilo');
-	var btnSalvar = modal.find('.js-salvar-btn');
-	var form = modal.find('form');
-	var _url = form.attr('action');
-	var inputNome = $('#nomeEstilo');
-	var containerErro = $('.js-mensagem')
+Brewer.EstiloCadastroRapidoAjax = (function() {
 
-	form.on('submit', function(event) {
-		event.preventDefault()
-	});
-
-	modal.on('hide.bs.modal', onModalClose);
-	modal.on('shown.bs.modal', onModalShow);
-	btnSalvar.on('click', onBotaoSalvarClick);
-
-	function onModalShow() {
-		inputNome.focus();
+	function EstiloCadastroRapidoAjax() {
+		this.modal = $('#modalCadastroRapidoEstilo');
+		this.btnSalvar = this.modal.find('.js-salvar-btn');
+		this.form = this.modal.find('form');
+		this._url = this.form.attr('action');
+		this.inputNome = $('#nomeEstilo');
+		this.containerErro = $('.js-mensagem');
 	}
 
-	function onModalClose() {
-		inputNome.val('');
-		containerErro.addClass('hidden')
+	EstiloCadastroRapidoAjax.prototype.start = function() {
+
+		this.form.on('submit', function(event) {
+			event.preventDefault()
+		});
+
+		this.modal.on('shown.bs.modal', onModalShow.bind(this));
+		this.modal.on('hide.bs.modal', onModalClose.bind(this));
+		this.btnSalvar.on('click', onBotaoSalvarClick.bind(this));
+
+	}
+	
+	function onModalShow() {
+		this.inputNome.focus();
+	}
+
+ 	function onModalClose() {
+ 		this.inputNome.val('');
+ 		this.containerErro.addClass('hidden');
 	}
 
 	function onBotaoSalvarClick() {
-		var estiloNome = inputNome.val().trim();
+		var estiloNome = this.inputNome.val().trim();
 
 		$.ajax({
-			url : _url,
+			url : this._url,
 			method : 'POST',
 			contentType : 'application/json',
 			data : JSON.stringify({
 				'nome' : estiloNome
 			}),
-			error : onErroSalvarEstilo,
-			success : onEstiloSalvo
+			error : onErroSalvarEstilo.bind(this),
+			success : onEstiloSalvo.bind(this)
 
-		})
-	}
-
+		});
+	} 
+	
 	function onEstiloSalvo(estilo) {
 		var comboEstilo = $('#estilo');
-		comboEstilo.append('<option value=' + estilo.codigo + '>' + estilo.nome + '</option>');
+		comboEstilo.append('<option value=' + estilo.codigo + '>' + estilo.nome
+				+ '</option>');
 		comboEstilo.val(estilo.codigo);
-		modal.modal('hide');
+		this.modal.modal('hide');
 
 	}
+	
 	function onErroSalvarEstilo(obj) {
 		var msgErro = obj.responseText;
-		containerErro.removeClass('hidden');
-		containerErro.html('<span>' + msgErro + '</span>')
+		this.containerErro.removeClass('hidden');
+		this.containerErro.html('<span>' + msgErro + '</span>')
+	}  
 
-	}
+	return EstiloCadastroRapidoAjax;
+}());
 
+$(function() {
+	
+	var cadastroAjax = new Brewer.EstiloCadastroRapidoAjax();
+	cadastroAjax.start();
 })

@@ -14,12 +14,10 @@ public class CervejaService {
 	@Autowired
 	private CervejaRepository cervejaRepository;
 
-	
 	@Transactional
 	public Cerveja Salvar(Cerveja cerveja) {
 
-		cervejaRepository.save(cerveja);
-		return cerveja;
+		return cervejaRepository.saveAndFlush(cerveja);
 
 	}
 
