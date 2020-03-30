@@ -12,3 +12,4 @@ Course Grade
 8. Migration w/ Flyway
 9. Spring Data w/ JPA
 10. Json w/ Jackson
+11. Js Pattern ES2015
