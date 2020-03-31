@@ -5,8 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cantarino.brewer.model.Cerveja;
-
-import Repository.CervejaRepository;
+import com.cantarino.brewer.repository.CervejaRepository;
 
 @Service
 public class CervejaService {

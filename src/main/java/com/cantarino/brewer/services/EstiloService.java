@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cantarino.brewer.model.Estilo;
+import com.cantarino.brewer.repository.EstiloRepository;
 import com.cantarino.brewer.validations.exceptions.ErroEntidade;
-
-import Repository.EstiloRepository;
 
 @Service
 public class EstiloService {

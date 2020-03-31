@@ -38,7 +38,7 @@ public class Cerveja {
 	@NotBlank(message = "Nome é obrigatorio")
 	private String nome;
 
-	@NotBlank
+	@NotBlank(message = "A descrição é obrigatorio")
 	@Size(min = 1, max = 50)
 	private String descricao;
 
@@ -56,11 +56,11 @@ public class Cerveja {
 	@DecimalMax(value = "100.00", message = "A comissao deve ser igual ou menor que 100 ")
 	private BigDecimal comissao;
 
-	@NotBlank(message = "A comissão é obrigatoria")
+	@NotBlank(message = "A quantidade em estoque é obrigatoria")
 	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
 
-	@NotNull(message = "O sabor é obrigatorio")
+	@NotNull(message = "a Origem é obrigatoria")
 	@Enumerated(EnumType.STRING)
 	private Origem origem;
 
@@ -70,7 +70,7 @@ public class Cerveja {
 
 	@ManyToOne
 	@JoinColumn(name = "codigo_estilo")
-	@NotNull(message = "O sabor é obrigatorio")
+	@NotNull(message = "O Estilo é obrigatorio")
 	private Estilo estilo;
 
 	@PrePersist

@@ -1,4 +1,4 @@
-package Repository;
+package com.cantarino.brewer.repository;
 
 import java.util.Optional;
 

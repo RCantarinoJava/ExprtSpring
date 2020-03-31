@@ -30,6 +30,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.cantarino.brewer.controllers.CervejaController;
 import com.cantarino.brewer.controllers.converters.EstiloConverter;
+import com.cantarino.brewer.thymeleaf.BrewerDialect;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -74,6 +75,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		engine.setTemplateResolver(templateResolver());
 
 		engine.addDialect(new LayoutDialect());
+		engine.addDialect(new BrewerDialect());
 		return engine;
 	}
 

@@ -16,8 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.cantarino.brewer.model.Cerveja;
-
-import Repository.CervejaRepository;
+import com.cantarino.brewer.repository.CervejaRepository;
 
 @Configuration
 @EnableJpaRepositories(basePackageClasses = CervejaRepository.class , enableDefaultTransactions = false)
