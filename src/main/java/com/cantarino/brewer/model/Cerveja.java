@@ -38,6 +38,12 @@ public class Cerveja {
 	@NotBlank(message = "Nome é obrigatorio")
 	private String nome;
 
+	private String foto;
+
+	
+	@Column(name = "content_Type")
+	private String contentType;
+
 	@NotBlank(message = "A descrição é obrigatorio")
 	@Size(min = 1, max = 50)
 	private String descricao;
@@ -159,6 +165,30 @@ public class Cerveja {
 		this.nome = nome;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -182,14 +212,6 @@ public class Cerveja {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 }

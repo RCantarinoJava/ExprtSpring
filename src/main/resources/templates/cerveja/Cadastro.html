@@ -5,6 +5,13 @@
 	layout:decorator="layout/default"
 	xmlns:brewer="http://www.cantarino.com.br">
 
+
+
+
+<head>
+<link rel="stylesheet" th:ref="@{/styles/vendors/upload.min.css}" />
+</head>
+
 <body>
 	<section layout:fragment="conteudo">
 
@@ -15,12 +22,13 @@
 		</div>
 
 		<div class="container-fluid">
-		
 
-			<form method="POST" th:object="${cerveja}" class="form-vertical  js-form-loading">
-			
-			<brewer:message/>
-		
+
+			<form method="POST" th:object="${cerveja}"
+				class="form-vertical  js-form-loading">
+
+				<brewer:message />
+
 
 				<div class="row">
 					<div class="col-sm-2 form-group" brewer:classforerror="sku">
@@ -70,7 +78,8 @@
 
 					<div class="col-sm-3 form-group"
 						brewer:classforerror="teorAlcoolico">
-						<label for="teorAlcolico" class="control-label">Teor Alcoolico:</label>
+						<label for="teorAlcolico" class="control-label">Teor
+							Alcoolico:</label>
 						<div class="input-group">
 							<input id="teorAlcoolico" type="text" th:field="*{teorAlcoolico}"
 								class="form-control  js-decimal" />
@@ -113,15 +122,32 @@
 						</div>
 					</div>
 
-					<div class="col-sm-3 form-group" brewer:classforerror="quantidadeEstoque">
+					<div class="col-sm-3 form-group"
+						brewer:classforerror="quantidadeEstoque">
 						<label for="estoque" class="control-label">Estoque:</label> <input
 							id="estoque" th:field="*{quantidadeEstoque}" type="text"
 							class="form-control js-plain" />
 					</div>
-
-
 				</div>
 
+
+
+				<div class="row">
+					<div class="form-group  col-sm-12">
+						<input type="hidden" th:field="*{foto}"> <input
+							type="hidden" th:field="*{contentType}"> <label
+							class="control-label">Foto</label>
+
+						<div class="container-foto-cerveja">
+							<div id="upload-drop" class="bw-upload">
+								<i class="glyphicon  glyphicon-cloud-upload"></i> <span>Arraste
+									a foto aqui ou </span> <a class="bw-upload-form-file">selecione <input
+									id="upload-select" name="upload-select" type="file"
+									accept=".jpg,.jpeg,.png" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="form-group">
 					<button class="btn  btn-primary" type="submit">Salvar</button>
 				</div>
@@ -130,10 +156,15 @@
 		</div>
 
 		<div th:replace="helpers/CadastroRapidoEstilo :: modal"></div>
+		<th:block th:replace="helpers/hbs/FotoViewer"></th:block>
 	</section>
 
 	<th:block layout:fragment="js-extras">
 		<script th:src="@{/js/estilo-cadastro.js}"></script>
+		<script th:src="@{/js/vendors/uikit.min.js}"></script>
+		<script th:src="@{/js/vendors/upload.min.js}"></script>
+		<script th:src="@{/js/vendors/handlebars.min.js}"></script>
+		<script th:src="@{/js/foto-upload.js}"></script>
 	</th:block>
 
 
