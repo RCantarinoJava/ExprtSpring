@@ -4,6 +4,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
@@ -16,10 +17,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.cantarino.brewer.model.Cerveja;
-import com.cantarino.brewer.repository.CervejaRepository;
+import com.cantarino.brewer.repository.Cervejas;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = CervejaRepository.class , enableDefaultTransactions = false)
+@ComponentScan(basePackageClasses = Cervejas.class)
+@EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false)
 @EnableTransactionManagement
 public class JPAConfig {
 
@@ -55,12 +57,11 @@ public class JPAConfig {
 	}
 
 	@Bean
-	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory)
-	{		
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 		JpaTransactionManager jpaTransactioManager = new JpaTransactionManager();
 		jpaTransactioManager.setEntityManagerFactory(entityManagerFactory);
-		
-		return 	jpaTransactioManager;
+
+		return jpaTransactioManager;
 	}
 
 }

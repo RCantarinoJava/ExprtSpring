@@ -17,7 +17,20 @@
 
 		<div class="page-header">
 			<div class="container-fluid">
-				<h1>Cadastro de Cerveja</h1>
+				<div class="row">
+					<div class="col-sm-10">
+						<h1>Cadastro de cerveja</h1>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="aw-page-header-controls">
+							<a class="btn  btn-default" th:href="@{/Cerveja/Pesquisar}"> <i
+								class="glyphicon  glyphicon-plus-sign"></i> <span
+								class="hidden-xs  hidden-sm">Pesquisa</span>
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -31,17 +44,20 @@
 
 
 				<div class="row">
-					<div class="col-sm-2 form-group" brewer:classforerror="sku">
+					<div class="col-sm-2 form-group bw-riquired"
+						brewer:classforerror="sku">
 						<label for="sku" class="control-label">SKU:</label> <input
 							id="sku" type="text" th:field="*{sku}" class="form-control" />
 					</div>
 
-					<div class="col-sm-10 form-group" brewer:classforerror="nome">
+					<div class="col-sm-10 form-group bw-riquired"
+						brewer:classforerror="nome">
 						<label for="nome" class="control-label">Nome:</label> <input
 							id="nome" type="text" th:field="*{nome}" class="form-control" />
 					</div>
 
-					<div class="col-sm-12 form-group" brewer:classforerror="descricao">
+					<div class="col-sm-12 form-group bw-riquired"
+						brewer:classforerror="descricao">
 						<label for="descricao" class="control-label">Descrição</label>
 						<textarea id="descricao" rows="3" th:field="*{descricao}"
 							class="form-control"></textarea>
@@ -50,7 +66,8 @@
 				</div>
 
 				<div class="row">
-					<div class="col-sm-3 form-group" brewer:classforerror="estilo">
+					<div class="col-sm-3 form-group bw-riquired"
+						brewer:classforerror="estilo">
 						<label for="estilo" class="control-label">Estilo:</label>
 						<div class="bw-field-action">
 							<select id="estilo" class="form-control" th:field="*{estilo}">

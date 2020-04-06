@@ -16,10 +16,12 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
 
 import com.cantarino.brewer.validations.SKU;
 
@@ -40,7 +42,6 @@ public class Cerveja {
 
 	private String foto;
 
-	
 	@Column(name = "content_Type")
 	private String contentType;
 
@@ -48,21 +49,22 @@ public class Cerveja {
 	@Size(min = 1, max = 50)
 	private String descricao;
 
-	@NotBlank(message = "O valor é obrigatorio")
-	@DecimalMin("0.00")
-	@DecimalMax(value = "9999999.99", message = "O valor da cerveja deve ser menos que o R$9.999.999,99 ")
+	@NotNull(message = "Valor é obrigatório")
+	@DecimalMin(value = "0.50", message = "O valor da cerveja deve ser maior que R$0,50")
+	@DecimalMax(value = "9999999.99", message = "O valor da cerveja deve ser menor que R$9.999.999,99")
 	private BigDecimal valor;
 
-	@NotBlank(message = "O teor Alcoolico é obrigatorio")
-	@DecimalMax(value = "100.00", message = "O teor Alcoolico deve ser igual ou menor que 100 ")
+	@NotNull(message = "O teor alcóolico é obrigatório")
+	@DecimalMax(value = "100.0", message = "O valor do teor alcóolico deve ser menor que 100")
 	@Column(name = "teor_alcoolico")
 	private BigDecimal teorAlcoolico;
 
-	@NotBlank(message = "A comissão é obrigatoria")
-	@DecimalMax(value = "100.00", message = "A comissao deve ser igual ou menor que 100 ")
+	@NotNull(message = "A comissão é obrigatória")
+	@DecimalMax(value = "100.0", message = "A comissão deve ser igual ou menor que 100")
 	private BigDecimal comissao;
 
-	@NotBlank(message = "A quantidade em estoque é obrigatoria")
+	@NotNull(message = "A quantidade em estoque é obrigatória")
+	@Max(value = 9999, message = "A quantidade em estoque deve ser menor que 9.999")
 	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
 
@@ -187,6 +189,10 @@ public class Cerveja {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+
+	public String getFotoOrMock() {
+		return !StringUtils.isEmpty(foto) ? foto : "cerveja-mock.png";
 	}
 
 	@Override

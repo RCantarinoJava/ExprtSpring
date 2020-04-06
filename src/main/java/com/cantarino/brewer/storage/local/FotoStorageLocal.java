@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
+
 public class FotoStorageLocal implements IFotoStorage {
 
 	private static final Logger LOG = LoggerFactory.getLogger(FotoStorageLocal.class);
@@ -71,7 +74,29 @@ public class FotoStorageLocal implements IFotoStorage {
 		try {
 			return Files.readAllBytes(this.localTemporario.resolve(nome));
 		} catch (IOException e) {
-			throw new RuntimeException("Erro ao recuperar foto", e);
+			throw new RuntimeException("Erro ao recuperar foto temporaria", e);
+		}
+	}
+
+	@Override
+	public void Salvar(String foto) {
+		try {
+			Files.move(this.localTemporario.resolve(foto), this.local.resolve(foto));
+			Thumbnails.of(this.local.resolve(foto).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+		} catch (IOException e) {
+
+			throw new RuntimeException("Erro ao salvar foto", e);
+		}
+
+	}
+
+	@Override
+	public byte[] recuperarFoto(String nome) {
+
+		try {
+			return Files.readAllBytes(this.local.resolve(nome));
+		} catch (IOException e) {
+			throw new RuntimeException("Erro ao recuperar foto no local", e);
 		}
 	}
 
