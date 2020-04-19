@@ -2,7 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/default"
+	layout:decorator="~{layout/default}"
 	xmlns:brewer="http://www.cantarino.com.br">
 
 <head>
@@ -114,7 +114,8 @@
 					<thead>
 						<tr>
 							<th class="table-cervejas-col-foto"></th>
-							<th class="table-cervejas-col-sku"><brewer:order
+							<th class="table-cervejas-col-sku">
+							<brewer:order 
 									page="${pagina}" field="sku" text="SKU" /></th>
 							<th class="table-cervejas-col-nome"><brewer:order
 									page="${pagina}" field="nome" text="Nome" /></th>

@@ -30,8 +30,11 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.cantarino.brewer.controllers.CervejaController;
+import com.cantarino.brewer.controllers.converters.CidadeConverter;
+import com.cantarino.brewer.controllers.converters.EstadoConverter;
 import com.cantarino.brewer.controllers.converters.EstiloConverter;
 import com.cantarino.brewer.thymeleaf.BrewerDialect;
+import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -60,6 +63,8 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService convService = new DefaultFormattingConversionService();
 		convService.addConverter(new EstiloConverter());
+		convService.addConverter(new CidadeConverter());
+		convService.addConverter(new EstadoConverter());
 
 		NumberStyleFormatter bigDecimalStyleFormater = new NumberStyleFormatter("#,#0.00");
 		convService.addFormatterForFieldType(BigDecimal.class, bigDecimalStyleFormater);
@@ -78,6 +83,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
 		engine.addDialect(new LayoutDialect());
 		engine.addDialect(new BrewerDialect());
+		engine.addDialect(new DataAttributeDialect());
 		return engine;
 	}
 
