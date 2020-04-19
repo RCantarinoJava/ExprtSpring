@@ -2,9 +2,12 @@ package com.cantarino.brewer.config;
 
 import java.math.BigDecimal;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.BeansException;
-
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +38,7 @@ import com.cantarino.brewer.controllers.converters.EstadoConverter;
 import com.cantarino.brewer.controllers.converters.EstiloConverter;
 import com.cantarino.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
+import com.google.common.cache.CacheBuilder;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -42,6 +46,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @ComponentScan(basePackageClasses = { CervejaController.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
+@EnableCaching
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
@@ -104,6 +109,19 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+	}
+
+	@Bean
+	public CacheManager cacheManager() {
+		CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.newBuilder()
+				.maximumSize(3)
+				.expireAfterAccess(20,TimeUnit.SECONDS);
+
+		GuavaCacheManager guavaCacheManager = new GuavaCacheManager();
+		guavaCacheManager.setCacheBuilder(cacheBuilder);
+
+		return guavaCacheManager;
+
 	}
 
 }
