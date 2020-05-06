@@ -17,3 +17,5 @@ Course Grade
 13. template Handlebars
 14. Spring Event-Driven Architecture 
 15. Google guava cache
+16. Many To Many relationship
+17. SpringSecurity BCrypt
