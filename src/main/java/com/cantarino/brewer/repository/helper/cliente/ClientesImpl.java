@@ -39,12 +39,10 @@ public class ClientesImpl implements ClientesQueries {
 		criteria.createAlias("endereco.cidade", "c", JoinType.LEFT_OUTER_JOIN);
 		criteria.createAlias("c.estado", "e", JoinType.LEFT_OUTER_JOIN);
 
-		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+		return new PageImpl<>(criteria.list(), pageable, total(filtro, criteria));
 	}
 
-	private Long total(ClienteFilter filtro) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);
-		adicionarFiltro(filtro, criteria);
+	private Long total(ClienteFilter filtro, Criteria criteria) {
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();
 	}

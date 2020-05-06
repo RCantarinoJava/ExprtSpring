@@ -8,6 +8,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.cantarino.brewer.config.JPAConfig;
+import com.cantarino.brewer.config.SecurityConfig;
 import com.cantarino.brewer.config.ServiceConfig;
 import com.cantarino.brewer.config.WebConfig;
 
@@ -17,7 +18,7 @@ public class apInitializer extends AbstractAnnotationConfigDispatcherServletInit
 	protected Class<?>[] getRootConfigClasses() {
 
 		// modulo que e configurado antes do serveletWeb
-		return new Class<?>[] { JPAConfig.class , ServiceConfig.class };
+		return new Class<?>[] { JPAConfig.class , ServiceConfig.class , SecurityConfig.class };
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.cantarino.brewer.config;
 
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -10,10 +11,13 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
@@ -36,6 +40,7 @@ import com.cantarino.brewer.controllers.CervejaController;
 import com.cantarino.brewer.controllers.converters.CidadeConverter;
 import com.cantarino.brewer.controllers.converters.EstadoConverter;
 import com.cantarino.brewer.controllers.converters.EstiloConverter;
+import com.cantarino.brewer.controllers.converters.GrupoConverter;
 import com.cantarino.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.google.common.cache.CacheBuilder;
@@ -65,17 +70,31 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	}
 
 	@Bean
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
+		bundle.setBasename("classpath:/messages");
+		bundle.setDefaultEncoding("UTF-8"); // http://www.utf8-chartable.de/
+		return bundle;
+	}
+
+	@Bean
 	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService convService = new DefaultFormattingConversionService();
 		convService.addConverter(new EstiloConverter());
 		convService.addConverter(new CidadeConverter());
 		convService.addConverter(new EstadoConverter());
+		convService.addConverter(new GrupoConverter());
 
 		NumberStyleFormatter bigDecimalStyleFormater = new NumberStyleFormatter("#,#0.00");
 		convService.addFormatterForFieldType(BigDecimal.class, bigDecimalStyleFormater);
 
 		NumberStyleFormatter intergerNumberStyleFormatter = new NumberStyleFormatter("#,##0");
 		convService.addFormatterForFieldType(Integer.class, intergerNumberStyleFormatter);
+
+		// API Java 8+
+		DateTimeFormatterRegistrar dateFormatter = new DateTimeFormatterRegistrar();
+		dateFormatter.setDateFormatter(DateTimeFormatter.ofPattern(("dd/MM/yyyy")));
+		dateFormatter.registerFormatters(convService);
 
 		return convService;
 	}
@@ -113,9 +132,8 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
 	@Bean
 	public CacheManager cacheManager() {
-		CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.newBuilder()
-				.maximumSize(3)
-				.expireAfterAccess(20,TimeUnit.SECONDS);
+		CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.newBuilder().maximumSize(100)
+																.expireAfterAccess(1,TimeUnit.DAYS);
 
 		GuavaCacheManager guavaCacheManager = new GuavaCacheManager();
 		guavaCacheManager.setCacheBuilder(cacheBuilder);

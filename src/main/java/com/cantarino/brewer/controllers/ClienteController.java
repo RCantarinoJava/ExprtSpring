@@ -59,17 +59,15 @@ public class ClienteController {
 	}
 
 	@GetMapping
-	public ModelAndView pesquisar(ClienteFilter clienteFilter, BindingResult result
-			, @PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
+	public ModelAndView pesquisar(ClienteFilter clienteFilter, BindingResult result,
+			@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("Cliente/Pesquisa");
 		mv.addObject("tiposPessoa", TipoPessoa.values());
-		
-		PageWrapper<Cliente> paginaWrapper = new PageWrapper<>(clienteService.filtrar(clienteFilter, pageable)
-				, httpServletRequest);
+
+		PageWrapper<Cliente> paginaWrapper = new PageWrapper<>(clienteService.filtrar(clienteFilter, pageable),
+				httpServletRequest);
 		mv.addObject("pagina", paginaWrapper);
 		return mv;
 	}
-	
-	
-	
+
 }

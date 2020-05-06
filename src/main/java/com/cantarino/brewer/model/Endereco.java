@@ -19,12 +19,15 @@ public class Endereco implements Serializable {
 
 	private String cep;
 
-	@Transient
-	private Estado estado;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "codigo_cidade")
 	private Cidade cidade;
+	
+	@Transient
+	private Estado estado;
+
+
 
 	public String getNumero() {
 		return numero;
@@ -40,6 +43,15 @@ public class Endereco implements Serializable {
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+
+	public String getNomeCidadeSiglaEstado() {
+		
+		if (this.cidade == null)
+			return null;
+
+		return this.cidade.getNome() + "/" + this.cidade.getEstado().getSigla();
+
 	}
 
 	public Estado getEstado() {
