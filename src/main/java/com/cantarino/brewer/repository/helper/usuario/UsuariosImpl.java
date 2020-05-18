@@ -1,5 +1,8 @@
 package com.cantarino.brewer.repository.helper.usuario;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,7 +17,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-
 
 import com.cantarino.brewer.model.Usuario;
 import com.cantarino.brewer.repository.filter.UsuarioFilter;
@@ -50,10 +52,31 @@ public class UsuariosImpl implements UsuariosQueries {
 		if (filter == null)
 			return;
 
-		if (!StringUtils.isEmpty(filter.getNome())) {
+		if (!StringUtils.isEmpty(filter.getNome()))
 			criteria.add(Restrictions.ilike("nome", filter.getNome(), MatchMode.ANYWHERE));
-		}
 
 	}
 
+	@Override
+	public Optional<Usuario> findByEmail(UsuarioFilter filter) {
+
+		return manager.createQuery(" from Usuario  where lower(email) = lower(:email)  and ativo = true ", Usuario.class)
+				.setParameter("email", filter.getEmail())
+				.getResultList()
+				.stream()
+				.findFirst();
+
+	}
+
+	@Override
+	public List<String> getPermissoes(Usuario filter) {
+		
+		return manager.createQuery(" SELECT distinct p.nome from Usuario u inner join u.grupos g inner join g.permissoes p  where u = :usuario", String.class)
+				.setParameter("usuario", filter)
+				.getResultList();
+				
+		
+	
+	
+	}
 }

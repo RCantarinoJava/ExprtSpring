@@ -26,24 +26,21 @@ Brewer.MaskMoney = (function() {
 Brewer.MaskDate = (function() {
 
 	function MaskDate() {
-		this.inputDate = $('.js-date');		
+		this.inputDate = $('.js-date');
 	}
 
 	MaskDate.prototype.enable = function() {
 		this.inputDate.mask('00/00/0000');
 		this.inputDate.datepicker({
-			orientation: 'bottom',
-			language: 'pt-BR',
-			autoclose: true
+			orientation : 'bottom',
+			language : 'pt-BR',
+			autoclose : true
 		});
 	}
+
 	return MaskDate;
 
-}())
-
-
-
-
+}());
 
 Brewer.FoneMask = (function() {
 
@@ -67,40 +64,7 @@ Brewer.FoneMask = (function() {
 	}
 	return FoneMask;
 
-}())
-
-Brewer.DocumentsMask = (function() {
-
-	function DocumentsMask() {
-		this.radioPessoa = $('.js-radio-tipoPessoa');
-		this.labelCpfCnpj = $('[for=cpfOuCnpj]');
-		this.inputCpfCnpj = $('#cpfOuCnpj');
-	}
-
-	DocumentsMask.prototype.enable = function() {
-		this.radioPessoa.on('change', onTipoPessoaAlterado.bind(this))
-		var tipoPessoaSelecionada = this.radioPessoa.filter(':checked')[0]
-		if (tipoPessoaSelecionada)
-			aplicarMascara.call(this, $(tipoPessoaSelecionada));
-	}
-
-	function onTipoPessoaAlterado(event) {
-		var tipoPessoaSelecionada = $(event.currentTarget);
-		aplicarMascara.call(this, tipoPessoaSelecionada);
-		this.inputCpfCnpj.val('');
-
-	}
-
-	function aplicarMascara(tipoPessoaSelecionada) {
-		this.labelCpfCnpj.text(tipoPessoaSelecionada.data('documento'));
-		this.inputCpfCnpj.mask(tipoPessoaSelecionada.data('mascara'))
-
-		this.inputCpfCnpj.removeAttr('disabled');
-	}
-
-	return DocumentsMask;
-
-}())
+}());
 
 Brewer.CepMask = (function() {
 
@@ -123,14 +87,10 @@ $(function() {
 	var phoneMask = new Brewer.FoneMask();
 	phoneMask.enable();
 
-	var documentoMask = new Brewer.DocumentsMask();
-	documentoMask.enable();
-
 	var cepMask = new Brewer.CepMask();
 	cepMask.enable();
-	
-	var dateMask = new Brewer.MaskDate();
-	dateMask.enable();
-	
-	
+
+	var maskDate = new Brewer.MaskDate();
+	maskDate.enable();
+
 });

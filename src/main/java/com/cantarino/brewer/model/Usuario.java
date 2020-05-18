@@ -24,7 +24,6 @@ import com.cantarino.brewer.validations.Compare;
 @Compare(atributo = "senha", atributoComparacao = "confirmacaoSenha", message = "Senhas nao conferem")
 @Entity
 @Table(name = "usuario")
-
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;

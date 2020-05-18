@@ -1,6 +1,7 @@
 package com.cantarino.brewer.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -59,5 +60,20 @@ public class UsuarioService {
 	public Page<Usuario> filtrar(UsuarioFilter filter, Pageable pageable) {
 		return UsuarioRepository.filtrar(filter, pageable);
 	}
+	
+	public Optional<Usuario> findByEmail(UsuarioFilter filter) {
+		return UsuarioRepository.findByEmail(filter);
+	}
+	
+	
+	public List<String> getPermissoes(Usuario filter) {
+		return UsuarioRepository.getPermissoes(filter);
+	}
+	
+	
+	
+	
+	
+	
 
 }
