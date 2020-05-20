@@ -1,3 +1,5 @@
+![Java CI with Maven](https://github.com/RCantarinoJava/ExprtSpring/workflows/Java%20CI%20with%20Maven/badge.svg)
+
 # Expert Spring Framework
 
 Course Grade
