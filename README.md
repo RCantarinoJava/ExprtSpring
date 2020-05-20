@@ -4,7 +4,7 @@
 
 Course Grade
 
-1. Java 1.8
+1. Java 8
 2. Spring 5
 3. Maven
 4. Logging with Log4J2
@@ -21,3 +21,5 @@ Course Grade
 15. Google guava cache
 16. Many To Many relationship
 17. SpringSecurity BCrypt
+18. Spring Security
+19. CI w/ gitActions
