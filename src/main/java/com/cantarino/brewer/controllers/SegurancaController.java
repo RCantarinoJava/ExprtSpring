@@ -23,5 +23,12 @@ public class SegurancaController {
 
 		return "Login";
 	}
+	
+	
+	@GetMapping("/acessoNegado")
+	public String acessoNegado() {
+
+		return "acessoNegado";
+	}
 
 }

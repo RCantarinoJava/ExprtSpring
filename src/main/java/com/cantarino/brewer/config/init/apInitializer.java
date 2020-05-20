@@ -4,7 +4,6 @@ import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.cantarino.brewer.config.JPAConfig;
@@ -18,7 +17,7 @@ public class apInitializer extends AbstractAnnotationConfigDispatcherServletInit
 	protected Class<?>[] getRootConfigClasses() {
 
 		// modulo que e configurado antes do serveletWeb
-		return new Class<?>[] { JPAConfig.class , ServiceConfig.class , SecurityConfig.class };
+		return new Class<?>[] { JPAConfig.class, ServiceConfig.class, SecurityConfig.class };
 	}
 
 	@Override
@@ -35,17 +34,12 @@ public class apInitializer extends AbstractAnnotationConfigDispatcherServletInit
 
 	@Override
 	protected Filter[] getServletFilters() {
-		// forçar encoded utf-8
-		CharacterEncodingFilter _encodingFilter = new CharacterEncodingFilter();
-		_encodingFilter.setEncoding("UTF-8");
-		_encodingFilter.setForceEncoding(true);
 
-		return new Filter[] { _encodingFilter };
+		return new Filter[] {};
 	}
-	
+
 	@Override
-	protected void customizeRegistration(Dynamic registration)
-	{
+	protected void customizeRegistration(Dynamic registration) {
 		registration.setMultipartConfig(new MultipartConfigElement(""));
 	}
 
