@@ -4,6 +4,7 @@ import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.cantarino.brewer.config.JPAConfig;
@@ -35,7 +36,8 @@ public class apInitializer extends AbstractAnnotationConfigDispatcherServletInit
 	@Override
 	protected Filter[] getServletFilters() {
 
-		return new Filter[] {};
+		HttpPutFormContentFilter putFilter = new HttpPutFormContentFilter();
+		return new Filter[] { putFilter };
 	}
 
 	@Override

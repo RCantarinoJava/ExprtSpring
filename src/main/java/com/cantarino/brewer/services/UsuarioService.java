@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.cantarino.brewer.model.Usuario;
+import com.cantarino.brewer.model.dto.StatusUsuario;
 import com.cantarino.brewer.repository.Usuarios;
 import com.cantarino.brewer.repository.filter.UsuarioFilter;
 import com.cantarino.brewer.validations.exceptions.ErroEntidade;
@@ -60,19 +61,20 @@ public class UsuarioService {
 	public Page<Usuario> filtrar(UsuarioFilter filter, Pageable pageable) {
 		return UsuarioRepository.filtrar(filter, pageable);
 	}
-	
+
 	public Optional<Usuario> findByEmail(UsuarioFilter filter) {
 		return UsuarioRepository.findByEmail(filter);
 	}
-	
-	
+
 	public List<String> getPermissoes(Usuario filter) {
 		return UsuarioRepository.getPermissoes(filter);
 	}
-	
-	
-	
-	
-	
+
+	@Transactional
+	public void alterarStatus(Long[] codigos, StatusUsuario status) {
+
+		status.Execute(codigos, UsuarioRepository);
+
+	}
 
 }

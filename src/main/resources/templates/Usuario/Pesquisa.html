@@ -62,11 +62,11 @@
 		</form>
 		
 		<div class="aw-datatable-toolbar">
-			<button class="btn btn-default  btn-xs  js-status-btn  disabled" data:status="ATIVAR" data:url="@{/usuarios/status}">
+			<button class="btn btn-default  btn-xs  js-status-btn" data:status="ATIVAR" data:url="@{/Usuario/Status}">
 				<span>Ativar</span>
 			</button>
 			
-			<button class="btn btn-default  btn-xs  js-status-btn  disabled" data:status="DESATIVAR" data:url="@{/usuarios/status}">
+			<button class="btn btn-default  btn-xs  js-status-btn" data:status="DESATIVAR" data:url="@{/Usuario/Status}">
 				<span>Desativar</span>
 			</button>
 		</div>
@@ -130,8 +130,8 @@
     	 <brewer:pagination page="${pagina}"/>
 	</div>
 </section>
-<th:block layout:fragment="javascript-extra">
-	<script th:src="@{/javascripts/multiselecao.js}"></script>
+<th:block layout:fragment="js-extras">
+	<script th:src="@{/js/multiselecao.js}"></script>
 </th:block>
 </body>
 </html>

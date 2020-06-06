@@ -1,5 +1,6 @@
 package com.cantarino.brewer.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -15,9 +16,9 @@ import com.cantarino.brewer.repository.helper.usuario.UsuariosQueries;
 public interface Usuarios extends JpaRepository<Usuario, Long>, UsuariosQueries {
 
 	public Optional<Usuario> findByEmailIgnoreCase(String email);
-	
-	
-	public Page<Usuario> filtrar(UsuarioFilter usuarioFilter , Pageable pageable);
-		
-	
+
+	public Page<Usuario> filtrar(UsuarioFilter usuarioFilter, Pageable pageable);
+
+	public List<Usuario> findByCodigoIn(Long[] codigos);
+
 }
