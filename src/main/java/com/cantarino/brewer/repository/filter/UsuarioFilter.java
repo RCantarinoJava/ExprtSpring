@@ -1,10 +1,18 @@
 package com.cantarino.brewer.repository.filter;
 
+import java.util.List;
+
+import com.cantarino.brewer.model.Grupo;
+
 public class UsuarioFilter {
 
 	private String nome;
 
 	private String email;
+	
+	
+	private List<Grupo> grupos;
+	
 
 	public String getNome() {
 		return nome;
@@ -20,5 +28,13 @@ public class UsuarioFilter {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 }

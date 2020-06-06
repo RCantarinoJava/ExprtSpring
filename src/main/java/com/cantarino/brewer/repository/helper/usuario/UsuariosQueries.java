@@ -16,5 +16,7 @@ public interface UsuariosQueries {
 	public Optional<Usuario> findByEmail(UsuarioFilter filter);
 
 	public List<String> getPermissoes(Usuario filter);
+	
+	
 
 }
