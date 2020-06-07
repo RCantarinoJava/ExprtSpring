@@ -1,56 +1,66 @@
-var Brewer = Brewer || {};
+Brewer = Brewer || {};
 
 Brewer.MultiSelecao = (function() {
-
+	
 	function MultiSelecao() {
-
-		this.statusBtn =  $('.js-status-btn');
-		this.selecaoCheck =  $('.js-selecao');
-		
-		
+		this.statusBtn = $('.js-status-btn');
+		this.selecaoCheckbox = $('.js-selecao');
+		this.selecaoTodosCheckbox = $('.js-selecao-todos');
 	}
-
+	
 	MultiSelecao.prototype.iniciar = function() {
-		
-		this.statusBtn.on('click' , onAlterarStatus.bind(this));		
+		this.statusBtn.on('click', onStatusBtnClicado.bind(this));
+		this.selecaoTodosCheckbox.on('click', onSelecaoTodosClicado.bind(this));
+		this.selecaoCheckbox.on('click', onSelecaoClicado.bind(this));
 	}
 	
-	function onAlterarStatus(event)
-	{
-		var botao = $(event.currentTarget);	
-		var status = botao.data('status');
-		var filterSelecionado = this.selecaoCheck.filter(':checked');	
-		var codigos = $.map(filterSelecionado, function(c) {			
-			return $(c).data('codigo');			
+	function onStatusBtnClicado(event) {
+		var botaoClicado = $(event.currentTarget);
+		var status = botaoClicado.data('status');
+		var url = botaoClicado.data('url');
+		
+		var checkBoxSelecionados = this.selecaoCheckbox.filter(':checked');
+		var codigos = $.map(checkBoxSelecionados, function(c) {
+			return $(c).data('codigo');
 		});
 		
-		
-		if(codigo.length < 0)
-			return;
-		
-		$.ajax({
-			url: '',
-			method: 'PUT',
-			data: { codigos: codigos , status : status  },
-			sucess: function()
-			{
-				window.location.reload();
-			}
+		if (codigos.length > 0) {
+			$.ajax({
+				url: url,
+				method: 'PUT',
+				data: {
+					codigos: codigos,
+					status: status
+				}, 
+				success: function() {
+					window.location.reload();
+				}
+			});
 			
-		
-		});
-		
-		
-		
-		
+		}
 	}
 	
-
+	function onSelecaoTodosClicado() {
+		var status = this.selecaoTodosCheckbox.prop('checked');
+		this.selecaoCheckbox.prop('checked', status);
+		statusBotaoAcao.call(this, status);
+	}
+	
+	function onSelecaoClicado() {
+		var selecaoCheckboxChecados = this.selecaoCheckbox.filter(':checked');
+		this.selecaoTodosCheckbox.prop('checked', selecaoCheckboxChecados.length >= this.selecaoCheckbox.length);
+		statusBotaoAcao.call(this, selecaoCheckboxChecados.length);
+	}
+	
+	function statusBotaoAcao(ativar) {
+		ativar ? this.statusBtn.removeClass('disabled') : this.statusBtn.addClass('disabled');
+	}
+	
 	return MultiSelecao;
-
-})();
+	
+}());
 
 $(function() {
-	var multiSelection = new Brewer.MultiSelecao();
-	multiSelection.iniciar();
+	var multiSelecao = new Brewer.MultiSelecao();
+	multiSelecao.iniciar();
 });
