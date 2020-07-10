@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,7 +16,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -43,11 +43,16 @@ public class UsuariosImpl implements UsuariosQueries {
 	public Page<Usuario> filtrar(UsuarioFilter filter, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
 
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		//criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		paginacaoUtil.Prepare(criteria, pageable);		
 		adicionarFiltro(filter, criteria);
+		
+		
+		List<Usuario> usuariosFiltrados = criteria.list();
+		usuariosFiltrados.forEach(usuario -> Hibernate.initialize(usuario.getGrupos()));
+		
 
-		return new PageImpl<>(criteria.list(), pageable, total(filter, criteria));
+		return new PageImpl<>(usuariosFiltrados, pageable, total(filter, criteria));
 	}
 
 	private Long total(UsuarioFilter filter, Criteria criteria) {
@@ -68,8 +73,7 @@ public class UsuariosImpl implements UsuariosQueries {
 			criteria.add(Restrictions.ilike("email", filter.getEmail(), MatchMode.START));
 		
 		
-		
-		criteria.createAlias("grupos", "g" , JoinType.LEFT_OUTER_JOIN);
+		//criteria.createAlias("grupos", "g" , JoinType.LEFT_OUTER_JOIN);
 		if (filter.getGrupos() != null &&  !filter.getGrupos().isEmpty())
 		{
 			List<Criterion> subqueries = new ArrayList<>();
@@ -86,8 +90,6 @@ public class UsuariosImpl implements UsuariosQueries {
 			Criterion[] criterions = new  Criterion[subqueries.size()];
 			criteria.add(Restrictions.and(subqueries.toArray(criterions)));
 		}
-			
-
 	}
 
 	@Override
@@ -98,7 +100,6 @@ public class UsuariosImpl implements UsuariosQueries {
 				.getResultList()
 				.stream()
 				.findFirst();
-
 	}
 
 	@Override
@@ -107,9 +108,6 @@ public class UsuariosImpl implements UsuariosQueries {
 		return manager.createQuery(" SELECT distinct p.nome from Usuario u inner join u.grupos g inner join g.permissoes p  where u = :usuario", String.class)
 				.setParameter("usuario", filter)
 				.getResultList();
-				
-		
-	
 	
 	}
 }
