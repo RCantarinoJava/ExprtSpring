@@ -13,5 +13,4 @@ public class ControllerAdviceExceptionHandler {
 	public ResponseEntity<String> handleErroEntidade(ErroEntidade erro) {
 		return ResponseEntity.badRequest().body(erro.getMessage());
 	}
-
 }

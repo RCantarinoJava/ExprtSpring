@@ -24,6 +24,7 @@ import org.hibernate.validator.group.GroupSequenceProvider;
 import com.cantarino.brewer.model.validation.ClienteSequenceProvider;
 import com.cantarino.brewer.model.validation.group.CnpjCheck;
 import com.cantarino.brewer.model.validation.group.CpfCheck;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cliente")
@@ -55,6 +56,7 @@ public class Cliente implements Serializable {
 	@NotBlank(message = "E-mail é obrigatório")
 	private String email;
 
+	@JsonIgnore
 	@Embedded
 	private Endereco endereco;
 

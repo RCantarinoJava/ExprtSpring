@@ -71,7 +71,7 @@
 				      </span>
 				    </div>
 				    
-				    <th:block th:replace="Cliente/PesquisaRapidaClientes :: pesquisaRapidaClientes"></th:block>
+				  
 				</div>
 				
 				<div class="form-group  col-sm-4 bw-required">
@@ -159,16 +159,20 @@
 			</div>
 		</form>
 	</div>
+	
+	  <th:block th:replace="Cliente/PesquisaRapidaClientes :: pesquisaRapidaClientes"></th:block>
 </section>
 
-<th:block layout:fragment="javascript-extra">
-<script>
-$(function() {
-	$('.js-abas-venda a').click(function (e) {
-		e.preventDefault();
-		$(this).tab('show');
+<th:block layout:fragment="js-extras">
+	<script th:src="@{/js/vendors/handlebars.min.js}"></script>
+	<script th:src="@{/js/cliente.pesquisa-rapida.js}"></script>
+	<script>
+		$(function() {
+		$('.js-abas-venda a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
 	});
-});
 </script>
 </th:block>
 

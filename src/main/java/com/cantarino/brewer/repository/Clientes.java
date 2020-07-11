@@ -1,5 +1,6 @@
 package com.cantarino.brewer.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,6 +12,8 @@ import com.cantarino.brewer.repository.helper.cliente.ClientesQueries;
 @Repository
 public interface Clientes extends JpaRepository<Cliente, Long>, ClientesQueries {
 
-	public Optional<Cliente> findBycpfOuCnpj(String cpfOuCnpj);
+	public Optional<Cliente> findBycpfOuCnpj(String cpfOuCnpj);	
+	
+	public List<Cliente> findByNomeStartingWithIgnoreCase(String nome);
 
 }
