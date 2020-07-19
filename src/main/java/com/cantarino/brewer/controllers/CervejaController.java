@@ -1,5 +1,7 @@
 package com.cantarino.brewer.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -8,12 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,6 +25,7 @@ import com.cantarino.brewer.controllers.page.PageWrapper;
 import com.cantarino.brewer.model.Cerveja;
 import com.cantarino.brewer.model.Origem;
 import com.cantarino.brewer.model.Sabor;
+import com.cantarino.brewer.model.dto.CervejaDTO;
 import com.cantarino.brewer.repository.filter.CervejaFilter;
 import com.cantarino.brewer.services.CervejaService;
 import com.cantarino.brewer.services.EstiloService;
@@ -77,6 +82,11 @@ public class CervejaController {
 
 		return modelView;
 
+	}
+
+	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<CervejaDTO> FiltrarPor(String skuOuNome) {
+		return cervejaService.filterBy(skuOuNome);
 	}
 
 	private void buildModelPage(ModelAndView modelView) {

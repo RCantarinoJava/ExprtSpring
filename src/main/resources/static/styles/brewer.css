@@ -1,6 +1,24 @@
 /*
-  COMPONETES PERSONALIZADOS
+######################
+# UTILIDADES
+######################
 */
+.bw-glyphicon-large {
+	font-size: 18px;
+}
+
+.bw-required > .control-label:after {
+	content: "*";
+}
+
+
+/*
+######################
+# COMPONENTES
+######################
+*/
+
+/* Field Action */
 .bw-field-action {
 	display: flex;
 }
@@ -8,18 +26,6 @@
 .bw-field-action__icon {
 	margin: 6px 0 0 5px;
 }
-
-
-.bw-glyphicon-large {
-	font-size: 18px;
-}
-
-.bw-riquired > .control-label:after
-{
-	content: '*'
-}
-
-
 
 /* Upload */
 .bw-upload {
@@ -68,8 +74,16 @@
     vertical-align: middle;
 }
 
+/*
+###################
+# PÁGINAS DO SISTEMA
+###################
+*/
 
-
+/* Colunas comuns */
+.table-col-acoes {
+	width: 80px;
+}
 
 /* Colunas - Pesquisa de Cervejas */
 .table-cervejas-col-foto {
@@ -83,14 +97,6 @@
 }
 
 .table-cervejas-col-nome {
-	
-}
-
-
-.table-usuarios-col-status {
-	
-	width: 30px;
-	text-align: center;
 	
 }
 
@@ -108,6 +114,11 @@
 }
 
 .table-cervejas-col-acoes {
+	width: 80px;
+}
+
+/* Colunas - Pesquisa de Estilos */
+.table-estilos-col-codigo {
 	width: 80px;
 }
 
@@ -136,6 +147,15 @@
 	text-align: right;
 }
 
+/* Colunas - Pesquisa de cidades */
+.table-cidades-col-nome {
+	
+}
+
+.table-cidades-col-estado {
+	width: 140px;
+	text-align: right;
+}
 
 /* Colunas - Pesquisa de usuários */
 .table-usuarios-col-status {
@@ -159,6 +179,7 @@
 	color: #555;
 }
 
+
 /*
 ######################################
 # CUSTOMIZAÇÃO DE COMPONENTES
@@ -170,4 +191,102 @@
     content: "\f00c"; 
 }
 
+/* Easy Autocomplete */
+.easy-autocomplete input {
+	border-radius: 2px !important;
+}
 
+.easy-autocomplete-container ul li {
+	font-size: 1em !important;
+	padding: 0px 5px !important;
+}
+
+/* Tabela Item */
+.bw-tabela-item {
+	position: relative; /* Para que o painel de exclusão apareça dentro da linha */
+	
+	padding: 15px 0;
+	
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.bw-tabela-item:after {
+	clear: both;
+	display: block;
+    content: "";
+}
+
+.bw-tabela-item ~ .bw-tabela-item {
+	border-top: 1px solid #ddd;
+}
+
+.bw-tabela-item__coluna {
+	padding: 0 10px;
+}
+
+.bw-tabela-item__coluna--foto {
+	float: left;
+	width: 60px;
+	
+	text-align: center;
+}
+
+.bw-tabela-item__coluna--valores {
+	padding-right: 0px;
+}
+
+.bw-tabela-item__coluna--detalhes, .bw-tabela-item__coluna--valores {
+	margin-left: 60px;
+}
+
+.bw-tabela-cerveja-nome {
+	font-weight: 500;
+	font-size: 1.1em;
+	display: block;
+}
+
+.bw-tabela-cerveja-origem {
+	color: #aaa;
+	display: block;
+	font-weight: 200;
+}
+
+.bw-tabela-cerveja-campo-quantidade {
+	width: 30px;
+	text-align: right;
+}
+
+.bw-tabela-cerveja-valor-pequeno {
+	font-weight: 300;
+	font-size: 1em;
+}
+
+.bw-tabela-cerveja-valor-medio {
+	font-weight: 300;
+	font-size: 1.3em;
+}
+
+.bw-tabela-cerveja-valor-grande {
+	font-weight: 300;
+	font-size: 1.6em;
+}
+
+@media (min-width: 768px) { /* screen-sm-min */
+	.bw-tabela-item__coluna {
+		float: left;
+		margin-left: 0px;
+	}
+	
+	.bw-tabela-item__coluna--detalhes {
+		width: calc(70% - 30px);
+	}
+	
+	.bw-tabela-item__coluna--valores {
+		width: calc(30% - 30px);
+
+		text-align: right;
+	}
+}

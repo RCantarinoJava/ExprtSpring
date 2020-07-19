@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cantarino.brewer.model.Cerveja;
+import com.cantarino.brewer.model.dto.CervejaDTO;
 import com.cantarino.brewer.repository.Cervejas;
 import com.cantarino.brewer.repository.filter.CervejaFilter;
 import com.cantarino.brewer.services.events.CervejaEvent;
@@ -38,6 +39,10 @@ public class CervejaService {
 
 	public Page<Cerveja> filtrar(CervejaFilter cervejaFilter, Pageable pageable) {
 		return cervejaRepository.filtrar(cervejaFilter, pageable);
+	}
+
+	public List<CervejaDTO> filterBy(String skuOuNome) {
+		return cervejaRepository.filtrarBy(skuOuNome);
 	}
 
 }
